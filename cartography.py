@@ -1,8 +1,11 @@
 class Cell:
-    def __init__(self, i, j, val):
+    def __init__(self, i, j, val, **kwargs):
         self.i = i
         self.j = j
         self.val = val
+        self.extra = {}
+        for key in kwargs:
+            self.extra[key] = kwargs[key]
         self.neighbours = {}
 
     def __str__(self):
@@ -13,10 +16,10 @@ class Cell:
 
 
 class Map:
-    def __init__(self, lines, diag=False):
+    def __init__(self, lines, diag=False, **kwargs):
         self.cells = []
         self.cells.extend(
-            [Cell(i, j, val) for i, val in enumerate(line)]
+            [Cell(i, j, val, **kwargs) for i, val in enumerate(line)]
             for j, line in enumerate(lines)
         )
         self.set_neighbours(diag)
